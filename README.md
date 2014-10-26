@@ -29,7 +29,7 @@ sessionExpiration.Init({
     },
     sessionTimeout: function () {
         alert("Your session was timed out");
-        location.href = 'www.contoso.com/login';
+        location.href = 'http://www.contoso.com/login';
     }
 });
 ```
