@@ -13,6 +13,7 @@ How to use:
 
 Reference the script
 ```HTML
+<script src="~/Scripts/jquery.js"></script>
 <script src="~/Scripts/session-expiration.js"></script>
 ```
 
