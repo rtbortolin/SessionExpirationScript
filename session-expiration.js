@@ -5,7 +5,7 @@ var sessionExpiration = (function () {
     var sessionExpiringCallback;
     var sessionOkCallback;
     var sessionTimeout;
-    var cookieName = '.sessionTimeout2';
+    var cookieName = '.session-expiration';
 
     return {
         Init: function (data) {
