@@ -3,7 +3,11 @@ SessionExpirationScript
 
 Script to alert the user if the session is going to expires
 
-
+ - Supports IE7
+ - Cookie based
+ - Supports ajax and multi tabs
+  
+ 
 How to use:
 ---
 
@@ -29,3 +33,16 @@ sessionExpiration.Init({
     }
 });
 ```
+
+Version
+----
+
+1.0
+
+
+License
+----
+
+MIT
+
+rt.bortolin@gmail.com
