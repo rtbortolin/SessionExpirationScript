@@ -21,7 +21,7 @@ Then initialize the processes:
 ```JavaScript
 sessionExpiration.Init({
     expires: 5, //Time in minutes to session expires
-    startWarning: 2, //Time in minutes to start calling the alert (in this case, 3 minutes after script load (5-2))
+    startWarning: 2, //Time in minutes to start calling the alert before the session expires (in this case, 3 minutes after script loads (5-2))
     sessionExpiring: function (time) {
         $('body').html('Session remaining: ' + time + ' seconds');
     },
