@@ -1,14 +1,14 @@
 var sessionExpiration = (function () {
 
-    var differenceMinutesToStartWarning = 2;
-    var expirationMinutes = 3;
-    var sessionExpiringCallback;
-    var sessionOkCallback;
-    var sessionTimeout;
-    var cookieName = '.session-expiration';
+    var differenceMinutesToStartWarning = 2,
+    expirationMinutes = 3,
+    sessionExpiringCallback,
+    sessionOkCallback,
+    sessionTimeout,
+    cookieName = '.session-expiration';
 
     return {
-        Init: function (data) {
+        init: function (data) {
 
             if (data === undefined) {
                 throw 'parameters are required.';
@@ -40,9 +40,12 @@ var sessionExpiration = (function () {
             setConfigs();
             configBind();
 
+            var startWarningTime, oldExpirationTime, expirationTime = new Date();
             var sessionCheckIntervalId = setInterval(function () {
-                var startWarningTime = getStartingWarningTime();
-                var expirationTime = getTimeoutTime();
+                oldExpirationTime = expirationTime;
+
+                startWarningTime = getStartingWarningTime();
+                expirationTime = getTimeoutTime();
 
                 var now = new Date();
                 if (now >= startWarningTime) {
@@ -54,12 +57,13 @@ var sessionExpiration = (function () {
                         sessionExpiringCallback(parseInt(remainingTime / 1000));
                     }
                 } else {
-                    sessionOkCallback();
+                    if ((oldExpirationTime.getTime() - expirationTime.getTime()) !== 0) {
+                        sessionOkCallback();
+                    }
                 }
-
             }, 1000);
         }
-    }
+    };
 
     function setConfigs() {
         var expireDate = new Date(new Date().getTime() + (expirationMinutes * 60000));
@@ -85,7 +89,7 @@ var sessionExpiration = (function () {
         var ms = d.getTime() + (exdays * 24 * 60 * 60 * 1000)
         d = new Date(ms);
         var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + "; " + expires;
+        document.cookie = cname + "=" + cvalue + ";path=/";
     }
 
     function getMilliseconds(index) {
@@ -102,7 +106,7 @@ var sessionExpiration = (function () {
     }
 
     function configBind() {
-        $(window).ajaxSend(function () {
+        $(document).ajaxSend(function () {
             setConfigs();
         });
     }

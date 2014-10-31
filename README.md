@@ -38,8 +38,12 @@ sessionExpiration.Init({
 Version
 ----
 
-1.0
+1.1
 
+What's is new
+---
+ - 'sessionOk' will be called only when session timeout is refreshed
+ - fixed the bug with cookies path
 
 License
 ----
