@@ -40,7 +40,7 @@ Version
 
 1.1
 
-What's is new
+What's new
 ---
  - 'sessionOk' will be called only when session timeout is refreshed
  - fixed the bug with cookies path
