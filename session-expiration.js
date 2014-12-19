@@ -9,6 +9,7 @@ var sessionExpiration = (function () {
 
     return {
         init: function (data) {
+            deleteCookie(cookieName);
 
             if (data === undefined) {
                 throw 'parameters are required.';
@@ -70,7 +71,13 @@ var sessionExpiration = (function () {
         var values = new Date(new Date().getTime() + ((expirationMinutes - differenceMinutesToStartWarning) * 60000)).getTime();
         values += ':';
         values += expireDate.getTime();
-        setCookie(cookieName, values, 1);
+        setCookie(cookieName, values);
+    }
+
+    function deleteCookie(cname) {
+        var d = new Date(1970, 1, 1, 0, 0, 0, 0);
+        var expires = "expires=" + d.toUTCString();
+        var name = cname + '=;' + expires;
     }
 
     function getCookie(cname) {
@@ -84,11 +91,7 @@ var sessionExpiration = (function () {
         return "";
     }
 
-    function setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        var ms = d.getTime() + (exdays * 24 * 60 * 60 * 1000)
-        d = new Date(ms);
-        var expires = "expires=" + d.toUTCString();
+    function setCookie(cname, cvalue) {
         document.cookie = cname + "=" + cvalue + ";path=/";
     }
 
@@ -109,5 +112,8 @@ var sessionExpiration = (function () {
         $(document).ajaxSend(function () {
             setConfigs();
         });
+        window.onbeforeunload = function () {
+            setConfigs();
+        };
     }
 })();
